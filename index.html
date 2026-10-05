@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+  <meta name="theme-color" content="#FBF3E4" />
+  <title>Pocket Arcade</title>
+  <script>
+    // Tablets (iPads): lay the app out at phone size and let the browser scale it up to fill the screen,
+    // rather than showing small games in the middle of a big screen.
+    (function () {
+      function fit() {
+        var a = screen.width, b = screen.height, small = Math.min(a, b), big = Math.max(a, b);
+        if (small < 700) return;                                   // phones: as they are
+        var k = small / 540;                                       // ~1.5× on an iPad
+        // always lay out for upright: if the tablet is turned sideways we show a "turn me back" screen,
+        // and the game underneath keeps its upright layout so nothing breaks
+        var w = Math.round(small / k);
+        document.querySelector('meta[name=viewport]').setAttribute('content', 'width=' + w + ', user-scalable=no, viewport-fit=cover');
+      }
+      fit();
+      window.addEventListener('orientationchange', function () { setTimeout(fit, 200); });
+    })();
+  </script>
+  <!-- installable on a phone/iPad home screen (works offline once opened) -->
+  <link rel="manifest" href="./manifest.webmanifest" />
+  <link rel="icon" type="image/png" href="./icon-192.png" />
+  <link rel="apple-touch-icon" href="./apple-touch-icon.png" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-title" content="Pocket Arcade" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <script type="module" crossorigin src="./assets/index-CfBTJEHR.js"></script>
+  <link rel="stylesheet" crossorigin href="./assets/index-3DIa0Jha.css">
+</head>
+<body>
+  <div id="app"></div>
+  <!-- shown only on touch screens held sideways: the games are made for upright -->
+  <div id="turn-upright"><div class="tu-device">📱</div><div class="tu-text">Turn me back up the right way!</div></div>
+</body>
+</html>
